@@ -1,0 +1,273 @@
+/* --- Layout & Background --- */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #0a1a2a 0%, #000000 100%);
+  color: #e0e6f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+main {
+  background: rgba(5, 18, 38, 0.85);
+  padding: 2.5rem 3rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 71, 255, 0.8);
+  width: 420px;
+  max-width: 90vw;
+  position: relative;
+  overflow: visible;
+  animation: fadeInScale 0.5s ease forwards;
+}
+
+@keyframes fadeInScale {
+  from {opacity: 0; transform: scale(0.95);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+/* --- Heading --- */
+h1 {
+  font-weight: 900;
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+  color: #66b2ff;
+  text-align: center;
+  text-shadow: 0 0 10px #2d80ff;
+  letter-spacing: 1px;
+}
+
+/* --- Form Elements --- */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+textarea {
+  background: rgba(15, 35, 70, 0.6);
+  border: 2px solid #224488;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 1rem;
+  color: #cde0ff;
+  resize: vertical;
+  min-height: 100px;
+  box-shadow: inset 0 0 12px rgba(0, 85, 255, 0.4);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+textarea:focus {
+  border-color: #4488ff;
+  box-shadow: inset 0 0 20px #5599ff, 0 0 10px #5599ff;
+  outline: none;
+}
+
+/* --- Button with ripple effect --- */
+button {
+  position: relative;
+  background: linear-gradient(135deg, #0056ff, #0039aa);
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 0;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 86, 255, 0.6);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #3a7fff, #1c52d4);
+  box-shadow: 0 10px 25px rgba(58, 127, 255, 0.8);
+  transform: translateY(-3px);
+}
+
+button:active {
+  transform: translateY(-1px);
+}
+
+/* Ripple effect */
+button::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.3);
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.8s ease;
+}
+
+button:focus::after,
+button:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* --- Result text --- */
+.result-text {
+  margin-top: 1.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  text-align: center;
+  text-shadow: 0 0 8px #66aaffcc;
+  min-height: 1.5rem;
+}
+
+/* --- Modal Overlay --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(10, 20, 50, 0.8);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* --- Modal Box --- */
+.modal {
+  background: linear-gradient(145deg, #001a4d, #003366);
+  border-radius: 24px;
+  box-shadow: 0 15px 40px rgba(0, 85, 255, 0.6);
+  padding: 2rem 3rem;
+  width: 320px;
+  max-width: 90vw;
+  text-align: center;
+  color: white;
+  position: relative;
+  animation: slideUpFade 0.5s ease forwards;
+}
+
+@keyframes slideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Loading spinner --- */
+.spinner {
+  border: 6px solid rgba(255, 255, 255, 0.15);
+  border-top: 6px solid #4488ff;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 1.25rem;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+
+/* --- Modal Result: Hate Speech (Red) --- */
+.modal.hate {
+  background: linear-gradient(135deg, #a82222, #550000);
+  box-shadow: 0 15px 40px rgba(255, 50, 50, 0.9);
+  color: #ffcdd2;
+}
+
+.modal.hate .modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #ff3333;
+  animation: pulseRed 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseRed {
+  0%, 100% {transform: scale(1); opacity: 1;}
+  50% {transform: scale(1.15); opacity: 0.8;}
+}
+
+/* --- Modal Result: No Hate Speech (Green) --- */
+.modal.safe {
+  background: linear-gradient(135deg, #228a22, #004400);
+  box-shadow: 0 15px 40px rgba(50, 255, 50, 0.8);
+  color: #d0f5d0;
+}
+
+.modal.safe .modal-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #33cc33;
+  animation: pulseGreen 1.6s ease-in-out infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% {transform: scale(1); opacity: 1;}
+  50% {transform: scale(1.15); opacity: 0.8;}
+}
+
+/* --- Modal text --- */
+.modal p {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+/* --- Modal close button --- */
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  font-weight: 900;
+}
+
+.modal-close-btn:hover {
+  color: white;
+  transform: scale(1.2);
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 480px) {
+  main {
+    padding: 1.8rem 2rem;
+    width: 90vw;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 12px 0;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .modal {
+    width: 90vw;
+  }
+}
