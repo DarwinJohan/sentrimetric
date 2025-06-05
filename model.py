@@ -54,3 +54,5 @@ if len(sys.argv) > 1:
         print("✅ Not Hate Speech")
 else:
     print("No input given.")
+
+#model gk disave dlm pkl
