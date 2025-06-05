@@ -49,8 +49,8 @@ if len(sys.argv) > 1:
     clean = preprocess_text(input_text)
     prediction = model.predict([clean])[0] #pake trained model yg udh clean
     if prediction == 1:
-        print("⚠️ Hate Speech Detected!!!")
+        print("⚠️ Hate Speech Detected")
     else:
-        print("✅ Not Hate Speech.")
+        print("✅ Not Hate Speech")
 else:
     print("No input given.")
