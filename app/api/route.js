@@ -4,7 +4,7 @@ export async function POST(request) {
   const { text } = await request.json();
 
   return new Promise((resolve) => {
-    const python = spawn('python', ['model.py', text]);
+    const python = spawn('python', ['predict.py', text]);
 
     let result = '';
     python.stdout.on('data', (data) => {
@@ -17,11 +17,13 @@ export async function POST(request) {
 
     python.on('close', () => {
       const trimmed = result.trim();
-      const isHateSpeech = trimmed.trim() === '⚠️ Hate Speech Detected';
+      const isHateSpeech = trimmed.trim() === 'HATE';
+      const message = isHateSpeech ? "⚠️ Hate Speech Detected" : "✅ Not Hate Speech";
+
 
       resolve(
-        new Response(
-          JSON.stringify({ result: trimmed, isHateSpeech }),
+         new Response(
+            JSON.stringify({ result: message, isHateSpeech }),
           {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
