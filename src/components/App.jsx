@@ -21,7 +21,7 @@ export default function App() {
       const data = await res.json();
       setResult({ hate: data.isHateSpeech, message: data.result });
     } catch (error) {
-      setResult({ hate: false, message: 'Terjadi kesalahan, coba lagi.' });
+      setResult({ hate: false, message: 'Error occured, please try again.' });
     } finally {
       setLoading(false);
     }
@@ -30,21 +30,19 @@ export default function App() {
   return (
     <>
       <main>
-        <h1>🧠 Hate Speech Detector</h1>
+        <h1>Hate Speech Detector</h1>
         <form onSubmit={handleSubmit}>
           <textarea
-            placeholder="Masukkan kalimat di sini..."
+            placeholder="Please input sentence..."
             value={text}
             onChange={(e) => setText(e.target.value)}
             rows={5}
           />
-          <button type="submit">Deteksi</button>
+          <button type="submit">Detect</button>
         </form>
 
         {!loading && result && (
-          <p
-            className="result-text"
-            style={{ color: result.hate ? '#ff5555' : '#55ff55' }}
+          <p className="result-text" style={{ color: result.hate ? '#ff5555' : '#55ff55' }}
           >
             {result.message}
           </p>
@@ -55,28 +53,22 @@ export default function App() {
       <div className={`modal-overlay ${loading ? 'active' : ''}`} aria-hidden={!loading}>
         <div className="modal" role="alert" aria-live="assertive">
           <div className="spinner" aria-label="Loading spinner"></div>
-          <p>Memproses, harap tunggu...</p>
+          <p>Processing, please wait...</p>
         </div>
       </div>
 
       {/* Modal Result */}
-      <div
-        className={`modal-overlay ${!loading && result ? 'active' : ''}`}
-        aria-hidden={loading || !result}
+      <div className={`modal-overlay ${!loading && result ? 'active' : ''}`} aria-hidden={loading || !result}
       >
-        <div className={`modal ${result && result.hate ? 'hate' : 'safe'}`} role="alert" aria-live="polite">
-          <button
-            className="modal-close-btn"
-            aria-label="Tutup hasil"
-            onClick={() => setResult(null)}
-          >
-            &times;
-          </button>
-          <div className="modal-icon" aria-hidden="true">
-            {result && result.hate ? '⚠️' : '✅'}
+
+        <div className={`modal ${result?.hate === true ? 'hate' : 'safe'}`} role="alert">
+          <button className="modal-close-btn" onClick={() => setResult(null)}>&times;</button>
+          <div className={`modal-icon ${result?.hate ? 'warning' : 'check'}`} aria-hidden="true">
+            {result?.hate ? '⚠️' : '✅'}
           </div>
-          <p>{result && result.message}</p>
+          <p>{result?.message}</p>
         </div>
+
       </div>
     </>
   );

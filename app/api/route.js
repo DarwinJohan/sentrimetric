@@ -16,11 +16,17 @@ export async function POST(request) {
     });
 
     python.on('close', () => {
+      const trimmed = result.trim();
+      const isHateSpeech = trimmed.trim() === '⚠️ Hate Speech Detected';
+
       resolve(
-        new Response(JSON.stringify({ result: result.trim() }), {
-          status: 200,
-          headers: { 'Content-Type': 'application/json' },
-        })
+        new Response(
+          JSON.stringify({ result: trimmed, isHateSpeech }),
+          {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          }
+        )
       );
     });
   });

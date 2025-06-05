@@ -195,11 +195,32 @@ button:hover::after {
 }
 
 .modal.hate .modal-icon {
+  color: #ff3333;
+  animation: pulseRed 1.6s ease-in-out infinite;
+}
+
+
+.modal.hate .modal-icon {
   font-size: 3.5rem;
   margin-bottom: 1rem;
   color: #ff3333;
   animation: pulseRed 1.6s ease-in-out infinite;
 }
+
+.modal-icon.check {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #33cc33;
+  animation: pulseGreen 1.6s ease-in-out infinite;
+}
+
+.modal-icon.warning {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: #ff3333;
+  animation: pulseRed 1.6s ease-in-out infinite;
+}
+
 
 @keyframes pulseRed {
   0%, 100% {transform: scale(1); opacity: 1;}
