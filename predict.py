@@ -9,11 +9,11 @@ def preprocess_text(text):
     text = re.sub(r"\d+", "", text)
     return text
 
-# Load the pickled model
+# load model
 with open('hate_speech_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
-# Predict
+# prediksi
 if len(sys.argv) > 1:
     input_text = sys.argv[1]
     clean = preprocess_text(input_text)
